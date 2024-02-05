@@ -1,10 +1,11 @@
 {
   "name": "testcontainers-quickstart",
   "version": "1.0.0",
+  "type": "module",
   "description": "Testcontainers quickstart example project",
   "main": "index.js",
   "scripts": {
-    "test": "npx jest ./tests"
+    "test": "npx mocha ./tests --timeout 120000"
   },
   "keywords": [
     "testcontainers",
@@ -14,7 +15,8 @@
   "license": "MIT",
   "devDependencies": {
     "async-redis": "2.0.0",
-    "jest": "29.7.0",
+    "mocha": "10.2.0",
+    "chai": "5.0.3",
     "testcontainers": "10.6.0"
   }
 }

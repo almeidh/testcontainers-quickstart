@@ -1,16 +1,20 @@
-const redis = require('async-redis')
-const { GenericContainer } = require('testcontainers')
+import ar from 'async-redis'
+import tc from 'testcontainers'
+const { createClient } = ar
+const { GenericContainer } = tc
+import * as chai from 'chai'
+const expect = chai.expect
 
 describe('Redis', () => {
   let container
   let redisClient
 
-  beforeAll(async () => {
+  before(async () => {
     container = await new GenericContainer('redis')
       .withExposedPorts(6379)
       .start()
 
-    redisClient = redis.createClient(
+    redisClient = createClient(
       container.getMappedPort(6379),
       container.getHost(),
     )
@@ -18,15 +22,15 @@ describe('Redis', () => {
 
   it('works', async () => {
     await redisClient.set('key', 'val')
-    expect(await redisClient.get('key')).toBe('val')
+    expect(await redisClient.get('key')).to.equal('val')
   })
 
   it('fails', async () => {
-    await redisClient.set('user', "almeid")
-    expect(await redisClient.get('user')).toBe('almas')
+    await redisClient.set('user', 'almeid')
+    expect(await redisClient.get('user')).to.equal('almas')
   })
 
-  afterAll(async () => {
+  after(async () => {
     await redisClient.quit()
     await container.stop()
   })
