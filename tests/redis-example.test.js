@@ -20,14 +20,14 @@ describe('Redis', () => {
     )
   })
 
-  it('works', async () => {
+  it('Push', async () => {
     await redisClient.set('key', 'val')
     expect(await redisClient.get('key')).to.equal('val')
   })
 
-  it('fails', async () => {
-    await redisClient.set('user', 'almeid')
-    expect(await redisClient.get('user')).to.equal('almas')
+  it('You shall not pass !', async () => {
+    await redisClient.set('user', 'Almeid')
+    expect(await redisClient.get('user')).to.equal('almeid')
   })
 
   after(async () => {
